@@ -186,7 +186,7 @@
         </processes>
         <output>
             <type>VTK</type>
-            <prefix>twophaseflow</prefix>
+            <prefix>twophaseflow_test</prefix>
             <timesteps>
                 <!-- only output last timestep -->
                 <pair>
