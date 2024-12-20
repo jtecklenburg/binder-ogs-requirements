@@ -1,7 +1,7 @@
 import re
 
 def prj_from_template(param, template, prjfile):
-    param = add_prefix_suffix(param, r"$$")
+    param = add_prefix_suffix(param, r"%%")
     sed(param, template, prjfile)
 
 
