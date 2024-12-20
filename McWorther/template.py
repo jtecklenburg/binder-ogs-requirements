@@ -1,7 +1,7 @@
 import re
 
 def prj_from_template(param, template, prjfile):
-    param = add_prefix_suffix(param, r"$$")
+    param = add_prefix_suffix(param, r"%%")
     sed(param, template, prjfile)
 
 
@@ -19,7 +19,7 @@ def add_prefix_suffix(d, prefix_suffix):
     new_dict = {}
     for key, value in d.items():
         new_key = f"{prefix_suffix}{key}{prefix_suffix}"
-        new_dict[new_key] = value
+        new_dict[new_key] = str(value)
     return new_dict
 
 def sed(replace, source, output):
