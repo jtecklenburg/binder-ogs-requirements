@@ -114,8 +114,11 @@ class McWorther:
 
         x = 2 * self.A / phi * dFdS * np.sqrt(t)  
         
-        self.x = x[1:]
-        self.Sw = Sw[1:]
+        self.x = np.flip(x[1:])  # x values must be increasing for np.interp
+        self.Sw = np.flip(Sw[1:])
+
+    def get_solution(self):
+        return [self.x, self.Sw]
 
     def plot_solution(self):
 
