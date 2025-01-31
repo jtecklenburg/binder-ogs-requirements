@@ -1,0 +1,15 @@
+name: ogs-environment
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - ogs
+  - ogstools
+  - seaborn
+  - jupytext
+  - nbgitpuller
+  - ipywidgets
+  - gmsh
+  #- pip
+  #- pip:
+  #  - sphinx-gallery
