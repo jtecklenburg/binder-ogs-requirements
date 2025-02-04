@@ -10,6 +10,8 @@ dependencies:
   - nbgitpuller
   - ipywidgets
   - gmsh
-  #- pip
-  #- pip:
-  #  - sphinx-gallery
+  - black
+  - isort
+  - pip
+  - pip:
+    - jupyterlab-code-formatter
