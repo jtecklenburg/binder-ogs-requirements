@@ -10,6 +10,10 @@ If you want to access the full OGS source code with benchmarks use this link:
 
 - <https://binder.opengeosys.org/v2/gh/bilke/binder-ogs-requirements/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgitlab.opengeosys.org%252Fogs%252Fogs.git%26urlpath%3Dlab%252Ftree%252Fogs%252F%26branch%3Dmaster>
 
+If you want to access this repro in a JupyterHub use this link:
+
+- <https://binder.opengeosys.org/v2/gh/jtecklenburg/binder-ogs-requirements/master?urlpath=git-pull%3Frepo%3Dhttps%253A%252F%252Fgithub.com%252Fjtecklenburg%252Fbinder-ogs-requirements%26urlpath%3Dlab%252Ftree%252Fbinder-ogs-requirements%252F%26branch%3Dmaster>
+
 You can use [this link generator](https://nbgitpuller.readthedocs.io/en/latest/link.html) to generate links to other repos:
 
 - Select the `Binder`-tab
