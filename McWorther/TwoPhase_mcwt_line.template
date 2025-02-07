@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <OpenGeoSysProject>
-    <mesh>mcwt.vtu</mesh>
+    <mesh>mesh.vtu</mesh>
     <geometry>mcwt.gml</geometry>
     <processes>
         <process>
@@ -74,7 +74,7 @@
                     <type>SaturationBrooksCorey</type>
                     <residual_liquid_saturation>0.0</residual_liquid_saturation>
                     <residual_gas_saturation>0.0</residual_gas_saturation>
-                    <lambda>%%lambda%%</lambda>
+                    <lambda>%%lambda_%%</lambda>
                     <entry_pressure>%%Pe%%</entry_pressure>
                 </property>
                 <property>
@@ -82,7 +82,7 @@
                     <type>RelPermBrooksCorey</type>
                     <residual_liquid_saturation>0.0</residual_liquid_saturation>
                     <residual_gas_saturation>0.0</residual_gas_saturation>
-                    <lambda>%%lambda%%</lambda>
+                    <lambda>%%lambda_%%</lambda>
                     <min_relative_permeability>0</min_relative_permeability>
                 </property>
                 <property>
@@ -90,7 +90,7 @@
                     <type>RelPermBrooksCoreyNonwettingPhase</type>
                     <residual_liquid_saturation>0.0</residual_liquid_saturation>
                     <residual_gas_saturation>0.0</residual_gas_saturation>
-                    <lambda>%%lambda%%</lambda>
+                    <lambda>%%lambda_%%</lambda>
                     <min_relative_permeability>1e-9</min_relative_permeability>
                 </property>
                 <property>
