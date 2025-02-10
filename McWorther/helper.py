@@ -55,28 +55,7 @@ class plot_with_error:
         plt.show()
 
 
-
 def mesh1d(point_a, point_b, num_points):
-    points = vtk.vtkPoints()
-    line = vtk.vtkLine()
-
-    # Create linearly spaced arrays for x, y, and z coordinates
-    x_values = np.linspace(point_a[0], point_b[0], num_points)
-    y_values = np.linspace(point_a[1], point_b[1], num_points)
-    z_values = np.linspace(point_a[2], point_b[2], num_points)
-
-    for i in range(num_points-1):
-        points.InsertNextPoint(x_values[i], y_values[i], z_values[i])
-        line.GetPointIds().SetId(i, i+1)
-
-    ug = vtk.vtkUnstructuredGrid()
-    ug.SetPoints(points)
-    ug.InsertNextCell(line.GetCellType(), line.GetPointIds())
-
-    return ug
-
-
-def mesh1d2(point_a, point_b, num_points):
     # Create a vtkPoints object to store the points
     points = vtk.vtkPoints()
 

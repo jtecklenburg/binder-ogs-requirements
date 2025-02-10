@@ -4,8 +4,8 @@
  <name>mcwt</name>
  <points>
   <point x="0.000000" y="0.000000" z="0.000000" id="0" name="POINT0"/>
-  <point x="2.600000" y="0.000000" z="0.000000" id="1" name="POINT1"/>
-  <point x="1.300000" y="0.000000" z="0.000000" id="2"/>
+  <point x="%%x1%%" y="0.000000" z="0.000000" id="1" name="POINT1"/>
+  <point x="%%x2%%" y="0.000000" z="0.000000" id="2"/>
  </points>
  <polylines>
   <polyline id="0" name="Profile">
