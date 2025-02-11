@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import vtk
+from IPython.display import display, HTML, Javascript
 
 class plot_with_error:
     def __init__(self, x_ref, y_ref, style, label_ref, xlabel, ylabel, dylabel):
@@ -84,3 +85,45 @@ def mesh1d(point_a, point_b, num_points):
     unstructured_grid.SetCells(vtk.VTK_LINE, lines)
 
     return unstructured_grid
+
+
+def format_numbers(x):
+    if x == 0:
+        return '0.0'
+    if 0.0001 <= abs(x) <= 999999:
+        return f'{x:.4f}'.rstrip('0').rstrip('.')
+    else:
+        return f'{x:.4e}'
+
+
+# Funktion zum Rendern der Tabelle mit LaTeX-Formeln
+def render_latex_table(df, latex_column):
+    """
+    Rendert eine Pandas DataFrame-Tabelle in einem Jupyter Notebook,
+    wobei die LaTeX-Formeln korrekt dargestellt werden.
+    
+    :param df: Pandas DataFrame
+    :param latex_column: Name der Spalte mit LaTeX-Formeln
+    """
+
+    # Erstelle HTML für die LaTeX-Spalte
+    df[latex_column] = df[latex_column].apply(
+        lambda x: f"<div style='text-align: center;'>$$ {x} $$</div>"  # MathJax-Syntax einfügen
+    )
+    
+    # Konvertiere den DataFrame in HTML und aktiviere MathJax für die Darstellung
+    html_table = df.to_html(escape=False, index=False, float_format=format_numbers)  # Escape deaktivieren, damit HTML gerendert wird
+    
+    # MathJax aktivieren und Tabelle anzeigen
+    display(HTML("""
+        <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+        """ + html_table))
+    
+    # Führe MathJax neu aus, um die Formeln zu rendern
+    display(Javascript("""
+        if (window.MathJax) {
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+        }
+    """))
