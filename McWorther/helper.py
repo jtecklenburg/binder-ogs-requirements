@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import vtk
 from IPython.display import display, HTML, Javascript
+import pyvista as pv
 
 class plot_with_error:
     def __init__(self, x_ref, y_ref, style, label_ref, xlabel, ylabel, dylabel):
@@ -56,7 +57,7 @@ class plot_with_error:
         plt.show()
 
 
-def mesh1d(point_a, point_b, num_points):
+def create_1d_line_mesh(point_a, point_b, num_points):
     # Create a vtkPoints object to store the points
     points = vtk.vtkPoints()
 
@@ -80,11 +81,75 @@ def mesh1d(point_a, point_b, num_points):
         lines.InsertNextCell(line)
 
     # Create an unstructured grid
-    unstructured_grid = vtk.vtkUnstructuredGrid()
-    unstructured_grid.SetPoints(points)
-    unstructured_grid.SetCells(vtk.VTK_LINE, lines)
+    mesh = vtk.vtkUnstructuredGrid()
+    mesh.SetPoints(points)
+    mesh.SetCells(vtk.VTK_LINE, lines)
 
-    return unstructured_grid
+    return pv.UnstructuredGrid(mesh)
+
+def create_1d_quad_mesh(point_a, point_b, N):
+    # Berechne den Abstand zwischen den Punkten
+    d = np.linalg.norm(np.array(point_b) - np.array(point_a))
+    
+    # Erzeuge N Punkte zwischen point_a und point_b
+    points = np.linspace(point_a, point_b, N)
+    
+    # Erstelle VTK-Objekte
+    vtk_points = vtk.vtkPoints()
+    cells = vtk.vtkCellArray()
+    
+    # Füge Punkte hinzu und erstelle Quad-Elemente
+    for i in range(N - 1):
+        # Füge die Hauptpunkte hinzu
+        p1 = points[i]
+        p2 = points[i + 1]
+        id1 = vtk_points.InsertNextPoint(p1)
+        id2 = vtk_points.InsertNextPoint(p2)
+        
+        # Berechne und füge die verschobenen Punkte hinzu
+        p3 = p2 + np.array([0, d/N, 0])
+        p4 = p1 + np.array([0, d/N, 0])
+        id3 = vtk_points.InsertNextPoint(p3)
+        id4 = vtk_points.InsertNextPoint(p4)
+        
+        # Erstelle das Quad-Element
+        quad = vtk.vtkQuad()
+        quad.GetPointIds().SetId(0, id1)
+        quad.GetPointIds().SetId(1, id2)
+        quad.GetPointIds().SetId(2, id3)
+        quad.GetPointIds().SetId(3, id4)
+        cells.InsertNextCell(quad)
+    
+    # Erstelle das Mesh
+    mesh = vtk.vtkPolyData()
+    mesh.SetPoints(vtk_points)
+    mesh.SetPolys(cells)
+    
+    return pv.UnstructuredGrid(mesh)
+
+
+def create_boundary_line_meshes(point_a, point_b, N):
+    d = np.linalg.norm(np.array(point_b) - np.array(point_a))
+    offset = np.array([0, d/N, 0])
+    
+    def create_line_mesh(start_point):
+        points = vtk.vtkPoints()
+        points.InsertNextPoint(start_point)
+        points.InsertNextPoint(start_point + offset)
+        
+        line = vtk.vtkLine()
+        line.GetPointIds().SetId(0, 0)
+        line.GetPointIds().SetId(1, 1)
+        
+        cells = vtk.vtkCellArray()
+        cells.InsertNextCell(line)
+
+        mesh = vtk.vtkPolyData()
+        mesh.SetPoints(points)
+        mesh.SetLines(cells)
+        return pv.UnstructuredGrid(mesh)
+
+    return tuple(map(create_line_mesh, [point_a, point_b]))
 
 
 def format_numbers(x):

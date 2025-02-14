@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <OpenGeoSysProject>
-    <mesh>mesh.vtu</mesh>
+    <mesh>mesh_line.vtu</mesh>
     <geometry>mcwt.gml</geometry>
     <processes>
         <process>
