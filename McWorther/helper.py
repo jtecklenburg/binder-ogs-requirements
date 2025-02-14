@@ -87,19 +87,19 @@ def create_1d_line_mesh(point_a, point_b, num_points):
 
     return pv.UnstructuredGrid(mesh)
 
-def create_1d_quad_mesh(point_a, point_b, N):
+def create_1d_quad_mesh(point_a, point_b, num_points):
     # Berechne den Abstand zwischen den Punkten
     d = np.linalg.norm(np.array(point_b) - np.array(point_a))
     
     # Erzeuge N Punkte zwischen point_a und point_b
-    points = np.linspace(point_a, point_b, N)
+    points = np.linspace(point_a, point_b, num_points)
     
     # Erstelle VTK-Objekte
     vtk_points = vtk.vtkPoints()
     cells = vtk.vtkCellArray()
     
     # Füge Punkte hinzu und erstelle Quad-Elemente
-    for i in range(N - 1):
+    for i in range(num_points - 1):
         # Füge die Hauptpunkte hinzu
         p1 = points[i]
         p2 = points[i + 1]
@@ -107,8 +107,8 @@ def create_1d_quad_mesh(point_a, point_b, N):
         id2 = vtk_points.InsertNextPoint(p2)
         
         # Berechne und füge die verschobenen Punkte hinzu
-        p3 = p2 + np.array([0, d/N, 0])
-        p4 = p1 + np.array([0, d/N, 0])
+        p3 = p2 + np.array([0, d/num_points, 0])
+        p4 = p1 + np.array([0, d/num_points, 0])
         id3 = vtk_points.InsertNextPoint(p3)
         id4 = vtk_points.InsertNextPoint(p4)
         
@@ -128,9 +128,9 @@ def create_1d_quad_mesh(point_a, point_b, N):
     return pv.UnstructuredGrid(mesh)
 
 
-def create_boundary_line_meshes(point_a, point_b, N):
+def create_boundary_line_meshes(point_a, point_b, num_points):
     d = np.linalg.norm(np.array(point_b) - np.array(point_a))
-    offset = np.array([0, d/N, 0])
+    offset = np.array([0, d/num_points, 0])
     
     def create_line_mesh(start_point):
         points = vtk.vtkPoints()
