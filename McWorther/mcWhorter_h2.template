@@ -162,7 +162,7 @@
                     <type>SaturationBrooksCorey</type>
                     <residual_liquid_saturation>0.02</residual_liquid_saturation>
                     <residual_gas_saturation>0.001</residual_gas_saturation>
-                    <lambda>%%lambda%%</lambda>
+                    <lambda>%%lambda_%%</lambda>
                     <entry_pressure>%%Pe%%</entry_pressure>
                 </property>
                 <property>
@@ -171,7 +171,7 @@
                     <residual_liquid_saturation>0.02</residual_liquid_saturation>
                     <residual_gas_saturation>0.001</residual_gas_saturation>
                     <min_relative_permeability>1.e-9</min_relative_permeability>
-                    <lambda>%%lambda%%</lambda>
+                    <lambda>%%lambda_%%</lambda>
                 </property>
                 <property>
                     <name>relative_permeability</name>
@@ -179,7 +179,7 @@
                     <residual_liquid_saturation>0.02</residual_liquid_saturation>
                     <residual_gas_saturation>0.001</residual_gas_saturation>
                     <min_relative_permeability>1.e-9</min_relative_permeability>
-                    <lambda>%%lambda%%</lambda>
+                    <lambda>%%lambda_%%</lambda>
                 </property>
                 <property>
                     <name>porosity</name>
@@ -400,6 +400,12 @@
                     <component>1</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
+                <boundary_condition>
+                    <mesh>mesh_quad</mesh>
+                    <type>Dirichlet</type>
+                    <component>2</component>
+                    <parameter>zero</parameter>
+                </boundary_condition>                
             </boundary_conditions>
         </process_variable>
         <!-- ## Gas pressure equation #############################################-->
