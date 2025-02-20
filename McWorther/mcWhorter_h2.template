@@ -2,7 +2,7 @@
 <OpenGeoSysProject>
     <meshes>
         <mesh axially_symmetric="false">mesh_quad.vtu</mesh>
-        <mesh axially_symmetric="false">boundary_left.vtu</mesh>
+        <mesh axially_symmetric="false">boundary_left_test.vtu</mesh>
     </meshes>
     <processes>
         <process>
@@ -416,7 +416,7 @@
             <initial_condition>gas_pressure_ic</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <mesh>boundary_left</mesh>
+                    <mesh>boundary_left_test</mesh>
                     <type>Dirichlet</type>
                     <component>0</component>
                     <parameter>gas_pressure_ic</parameter>
@@ -431,7 +431,7 @@
             <initial_condition>capillary_pressure_ic</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <mesh>boundary_left</mesh>
+                    <mesh>boundary_left_test</mesh>
                     <type>Dirichlet</type>
                     <component>0</component>
                     <parameter>capillary_pressure_bc</parameter>
