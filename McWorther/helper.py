@@ -57,74 +57,40 @@ class plot_with_error:
         plt.show()
 
 
-def create_1d_line_mesh(point_a, point_b, num_points):
-    # Create a vtkPoints object to store the points
-    points = vtk.vtkPoints()
-
-    # Generate N points between point_a and point_b using numpy.linspace
-    x = np.linspace(point_a[0], point_b[0], num_points)
-    y = np.linspace(point_a[1], point_b[1], num_points)
-    z = np.linspace(point_a[2], point_b[2], num_points)
-
-    # Add the points to the vtkPoints object
-    for i in range(num_points):
-        points.InsertNextPoint(x[i], y[i], z[i])
-
-    # Create a vtkCellArray to store the lines
-    lines = vtk.vtkCellArray()
-
-    # Create lines between adjacent points
-    for i in range(num_points - 1):
-        line = vtk.vtkLine()
-        line.GetPointIds().SetId(0, i)
-        line.GetPointIds().SetId(1, i + 1)
-        lines.InsertNextCell(line)
-
-    # Create an unstructured grid
-    mesh = vtk.vtkUnstructuredGrid()
-    mesh.SetPoints(points)
-    mesh.SetCells(vtk.VTK_LINE, lines)
-
-    return pv.UnstructuredGrid(mesh)
-
-def create_1d_quad_mesh(point_a, point_b, num_points):
-    # Berechne den Abstand zwischen den Punkten
-    d = np.linalg.norm(np.array(point_b) - np.array(point_a))
-    
-    # Erzeuge N Punkte zwischen point_a und point_b
+def create_1d_mesh(point_a, point_b, num_points, mesh_type='line'):
     points = np.linspace(point_a, point_b, num_points)
-    
-    # Erstelle VTK-Objekte
     vtk_points = vtk.vtkPoints()
     cells = vtk.vtkCellArray()
-    
-    # Füge Punkte hinzu und erstelle Quad-Elemente
-    for i in range(num_points - 1):
-        # Füge die Hauptpunkte hinzu
-        p1 = points[i]
-        p2 = points[i + 1]
-        id1 = vtk_points.InsertNextPoint(p1)
-        id2 = vtk_points.InsertNextPoint(p2)
-        
-        # Berechne und füge die verschobenen Punkte hinzu
-        p3 = p2 + np.array([0, d/num_points, 0])
-        p4 = p1 + np.array([0, d/num_points, 0])
-        id3 = vtk_points.InsertNextPoint(p3)
-        id4 = vtk_points.InsertNextPoint(p4)
-        
-        # Erstelle das Quad-Element
-        quad = vtk.vtkQuad()
-        quad.GetPointIds().SetId(0, id1)
-        quad.GetPointIds().SetId(1, id2)
-        quad.GetPointIds().SetId(2, id3)
-        quad.GetPointIds().SetId(3, id4)
-        cells.InsertNextCell(quad)
-    
-    # Erstelle das Mesh
-    mesh = vtk.vtkPolyData()
+
+    if mesh_type == 'line':
+        for point in points:
+            vtk_points.InsertNextPoint(point)
+        for i in range(num_points - 1):
+            line = vtk.vtkLine()
+            line.GetPointIds().SetId(0, i)
+            line.GetPointIds().SetId(1, i + 1)
+            cells.InsertNextCell(line)
+        cell_type = vtk.VTK_LINE
+    elif mesh_type == 'quad':
+        d = np.linalg.norm(np.array(point_b) - np.array(point_a))
+        for i in range(num_points - 1):
+            p1, p2 = points[i], points[i + 1]
+            p3 = p2 + np.array([0, d/num_points, 0])
+            p4 = p1 + np.array([0, d/num_points, 0])
+            for p in (p1, p2, p3, p4):
+                vtk_points.InsertNextPoint(p)
+            quad = vtk.vtkQuad()
+            for j in range(4):
+                quad.GetPointIds().SetId(j, 4*i + j)
+            cells.InsertNextCell(quad)
+        cell_type = vtk.VTK_QUAD
+    else:
+        raise ValueError("Invalid mesh_type. Choose 'line' or 'quad'.")
+
+    mesh = vtk.vtkUnstructuredGrid()
     mesh.SetPoints(vtk_points)
-    mesh.SetPolys(cells)
-    
+    mesh.SetCells(cell_type, cells)
+
     return pv.UnstructuredGrid(mesh)
 
 
