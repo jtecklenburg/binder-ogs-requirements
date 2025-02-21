@@ -86,7 +86,7 @@
                         <property>
                             <name>viscosity</name>
                             <type>Constant</type>
-                            <value>%%mun%%</value>
+                            <value>%%muw%%</value>
                         </property>
                     </properties>
                 </phase>
@@ -116,7 +116,7 @@
                         <property>
                             <name>viscosity</name>
                             <type>Constant</type>
-                            <value>%%muw%%</value>
+                            <value>%%mun%%</value>
                         </property>
                     </properties>
                 </phase>
@@ -400,6 +400,7 @@
                     <component>1</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
+            </boundary_conditions>                
         </process_variable>
         <!-- ## Gas pressure equation #############################################-->
         <process_variable>

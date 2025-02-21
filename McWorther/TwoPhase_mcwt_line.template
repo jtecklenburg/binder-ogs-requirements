@@ -38,7 +38,7 @@
                         <property>
                             <name>viscosity</name>
                             <type>Constant</type>
-                            <value>%%mun%%</value>
+                            <value>%%muw%%</value>
                         </property>
                     </properties>
                 </phase>
@@ -53,7 +53,7 @@
                         <property>
                             <name>viscosity</name>
                             <type>Constant</type>
-                            <value>%%muw%%</value>
+                            <value>%%mun%%</value>
                         </property>
                         <property>
                             <name>molar_mass</name>
