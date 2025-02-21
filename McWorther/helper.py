@@ -91,7 +91,11 @@ def create_1d_mesh(point_a, point_b, num_points, mesh_type='line'):
     mesh.SetPoints(vtk_points)
     mesh.SetCells(cell_type, cells)
 
-    return pv.UnstructuredGrid(mesh)
+    mesh = pv.UnstructuredGrid(mesh)
+    mesh.point_data["bulk_node_ids"] = np.arange(0, mesh.n_points, dtype=np.uint64)
+    mesh.cell_date["bull_element_ids"] = np.arange(0, mesh.n_cells, dtype=np.uint64)
+
+    return mesh
 
 
 def create_boundary_line_meshes(point_a, point_b, num_points):
