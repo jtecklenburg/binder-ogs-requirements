@@ -400,13 +400,6 @@
                     <component>1</component>
                     <parameter>zero</parameter>
                 </boundary_condition>
-                <boundary_condition>
-                    <mesh>mesh_quad</mesh>
-                    <type>Dirichlet</type>
-                    <component>2</component>
-                    <parameter>zero</parameter>
-                </boundary_condition>                
-            </boundary_conditions>
         </process_variable>
         <!-- ## Gas pressure equation #############################################-->
         <process_variable>
