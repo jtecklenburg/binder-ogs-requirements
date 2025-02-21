@@ -62,9 +62,16 @@ def create_1d_mesh(point_a, point_b, num_points, mesh_type='line'):
     vtk_points = vtk.vtkPoints()
     cells = vtk.vtkCellArray()
 
+    # Funktion zum Hinzufügen eines Punktes und Rückgabe seiner ID
+    def add_point(point):
+        for i in range(vtk_points.GetNumberOfPoints()):
+            if np.allclose(vtk_points.GetPoint(i), point):
+                return i
+        return vtk_points.InsertNextPoint(point)
+
     if mesh_type == 'line':
         for point in points:
-            vtk_points.InsertNextPoint(point)
+            add_point(point)
         for i in range(num_points - 1):
             line = vtk.vtkLine()
             line.GetPointIds().SetId(0, i)
@@ -73,19 +80,22 @@ def create_1d_mesh(point_a, point_b, num_points, mesh_type='line'):
         cell_type = vtk.VTK_LINE
     elif mesh_type == 'quad':
         d = np.linalg.norm(np.array(point_b) - np.array(point_a))
+        offset = np.array([0, d/num_points, 0])
+        
+        # Erstelle alle Punkte im Voraus
+        all_points = np.vstack((points, points + offset))
+        point_ids = [add_point(p) for p in all_points]
+        
         for i in range(num_points - 1):
-            p1, p2 = points[i], points[i + 1]
-            p3 = p2 + np.array([0, d/num_points, 0])
-            p4 = p1 + np.array([0, d/num_points, 0])
-            for p in (p1, p2, p3, p4):
-                vtk_points.InsertNextPoint(p)
             quad = vtk.vtkQuad()
-            for j in range(4):
-                quad.GetPointIds().SetId(j, 4*i + j)
+            quad.GetPointIds().SetId(0, point_ids[i])
+            quad.GetPointIds().SetId(1, point_ids[i + 1])
+            quad.GetPointIds().SetId(2, point_ids[i + 1 + num_points])
+            quad.GetPointIds().SetId(3, point_ids[i + num_points])
             cells.InsertNextCell(quad)
         cell_type = vtk.VTK_QUAD
     else:
-        raise ValueError("Invalid mesh_type. Choose 'line' or 'quad'.")
+        raise ValueError("Ungültiger mesh_type. Wähle 'line' oder 'quad'.")
 
     mesh = vtk.vtkUnstructuredGrid()
     mesh.SetPoints(vtk_points)
@@ -93,7 +103,7 @@ def create_1d_mesh(point_a, point_b, num_points, mesh_type='line'):
 
     mesh = pv.UnstructuredGrid(mesh)
     mesh.point_data["bulk_node_ids"] = np.arange(0, mesh.n_points, dtype=np.uint64)
-    mesh.cell_date["bull_element_ids"] = np.arange(0, mesh.n_cells, dtype=np.uint64)
+    mesh.cell_data["bull_element_ids"] = np.arange(0, mesh.n_cells, dtype=np.uint64)
 
     return mesh
 
