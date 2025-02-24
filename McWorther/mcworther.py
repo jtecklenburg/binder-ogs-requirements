@@ -57,19 +57,22 @@ def plot_model(pc, kn, kw, Smin=0, Smax=1, nel=100):
 
         plt.subplot(1, 2, 1)
         plt.semilogy(Sw, pc(Sw))
-        plt.xlabel("Sw")
-        plt.ylabel("Pc")
+        plt.xlabel("$S_{w,e}$")
+        plt.ylabel("$P_c$")
 
-        plt.subplot(1, 2, 2)
+        ax2 = plt.subplot(1, 2, 2)
         plt.plot(Sw, kn(Sw))
         plt.plot(Sw, kw(Sw))
-        plt.xlabel("Sw")
-        plt.ylabel("kn, kw")
+        plt.xlabel("$S_{w,e}$")
+        plt.ylabel("$k_n$, $k_w$")
+
+        ax2.yaxis.set_label_position("right")
+        ax2.yaxis.tick_right()
 
         plt.show()
     
 class McWorther:
-    def __init__(self, model, phi=0.5, K=1.0e-10, muw=0.001, mun=0.005, S0=0.9, Si=0.0, t=1000, nel=1000, max_iter=100000, eps=1.0e-14):
+    def __init__(self, model, phi=0.5, K=1.0e-10, muw=0.001, mun=0.005, S0=0.9, Si=0.0, Snr=0.0, Swr=0.0, t=1000, nel=1000, max_iter=100000, eps=1.0e-14):
           
         eps2 = 10 ** -16
 
@@ -115,7 +118,8 @@ class McWorther:
         x = 2 * self.A / phi * dFdS * np.sqrt(t)  
         
         self.x = np.flip(x[1:])  # x values must be increasing for np.interp
-        self.Sw = np.flip(Sw[1:])
+        self.Swe = np.flip(Sw[1:])
+        self.Sw = self.Swe*(1-Snr-Swr)+Snr
 
     def get_solution(self):
         return [self.x, self.Sw]
@@ -123,8 +127,8 @@ class McWorther:
     def plot_solution(self):
 
         plt.plot(self.x, self.Sw, label=f"Analytical solution A={self.A:.4e}")
-        plt.xlabel("x")
-        plt.ylabel("Sw")
+        plt.xlabel("$x$")
+        plt.ylabel("$S_w$")
         plt.legend()
         #plt.show()
 
@@ -136,13 +140,16 @@ class McWorther:
 
         plt.subplot(1, 2, 1)
         plt.plot(Sw, self.D(Sw))
-        plt.xlabel('Sw')
-        plt.ylabel('D')
+        plt.xlabel('$S_{w,e}$')
+        plt.ylabel('$D$')
 
-        plt.subplot(1, 2, 2)
+        ax2 = plt.subplot(1, 2, 2)
         plt.plot(Sw, self.f(Sw))
-        plt.xlabel('Sw')
-        plt.ylabel('f')
+        plt.xlabel('$S_{w,e}$')
+        plt.ylabel('$f$')
+
+        ax2.yaxis.set_label_position("right")
+        ax2.yaxis.tick_right()
 
         plt.show()
 
