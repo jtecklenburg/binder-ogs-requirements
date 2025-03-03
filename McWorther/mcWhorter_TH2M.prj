@@ -367,52 +367,52 @@
         <parameter>
             <name>phi</name>
             <type>Constant</type>
-            <values>0.3</values>
+            <value>0.3</value>
         </parameter>
         <parameter>
             <name>K</name>
             <type>Constant</type>
-            <values>1.0e-10</values>
+            <value>1.0e-10</value>
         </parameter>
         <parameter>
             <name>Swr</name>
             <type>Constant</type>
-            <values>0.02</values>
+            <value>0.02</value>
         </parameter>
         <parameter>
             <name>Snr</name>
             <type>Constant</type>
-            <values>0.001</values>
+            <value>0.001</value>
         </parameter>
         <parameter>
             <name>mun</name>
             <type>Constant</type>
-            <values>0.001</values>
+            <value>0.001</value>
         </parameter>
         <parameter>
             <name>muw</name>
             <type>Constant</type>
-            <values>0.001</values>
+            <value>0.001</value>
         </parameter>
         <parameter>
             <name>Pe</name>
             <type>Constant</type>
-            <values>5000.0</values>
+            <value>5000.0</value>
         </parameter>
         <parameter>
             <name>lambda_</name>
             <type>Constant</type>
-            <values>3.0</values>
+            <value>3.0</value>
         </parameter>
         <parameter>
             <name>pci</name>
             <type>Constant</type>
-            <values>8571.18</values>
+            <value>8571.18</value>
         </parameter>
         <parameter>
             <name>pc0</name>
             <type>Constant</type>
-            <values>5191.02</values>
+            <value>5191.02</value>
         </parameter>           
     </parameters>
     <!-- ## Displacement equation #########################################-->
