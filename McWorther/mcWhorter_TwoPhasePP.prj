@@ -115,8 +115,8 @@
                         </property>
                         <property>
                             <name>viscosity</name>
-                            <type>Constant</type>
-                            <value>muw</value>
+                            <type>Parameter</type>
+                            <parameter_name>muw</parameter_name>
                         </property>
                     </properties>
                 </phase>
@@ -130,8 +130,8 @@
                         </property>
                         <property>
                             <name>viscosity</name>
-                            <type>Constant</type>
-                            <value>mun</value>
+                            <type>Parameter</type>
+                            <parameter_name>mun</parameter_name>
                         </property>
                         <property>
                             <name>molar_mass</name>
@@ -144,8 +144,8 @@
             <properties>
                 <property>
                     <name>permeability</name>
-                    <type>Constant</type>
-                    <value>K</value>
+                    <type>Parameter</type>
+                    <parameter_name>K</parameter_name>
                 </property>
                 <property>
                     <name>saturation</name>
@@ -173,8 +173,8 @@
                 </property>
                 <property>
                     <name>porosity</name>
-                    <type>Constant</type>
-                    <value>phi</value>
+                    <type>Parameter</type>
+                    <parameter_name>phi</parameter_name>
                 </property>
             </properties>
         </medium>
