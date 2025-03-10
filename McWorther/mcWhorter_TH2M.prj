@@ -170,8 +170,8 @@
                         </property>
                         <property>
                             <name>viscosity</name>
-                            <type>Constant</type>
-                            <value>muw</value>
+                            <type>Parameter</type>
+                            <parameter_name>muw</parameter_name>
                         </property>
                     </properties>
                 </phase>
@@ -200,8 +200,8 @@
                         </property>
                         <property>
                             <name>viscosity</name>
-                            <type>Constant</type>
-                            <value>mun</value>
+                            <type>Parameter</type>
+                            <parameter_name>mun</parameter_name>
                         </property>
                     </properties>
                 </phase>
@@ -268,8 +268,8 @@
                 </property>
                 <property>
                     <name>porosity</name>
-                    <type>Constant</type>
-                    <value>phi</value>
+                    <type>Parameter</type>
+                    <parameter_name>phi</parameter_name>
                 </property>
                 <property>
                     <name>thermal_conductivity</name>
