@@ -142,7 +142,7 @@ def format_numbers(x):
 
 
 # Funktion zum Rendern der Tabelle mit LaTeX-Formeln
-def render_latex_table(df, latex_column):
+def render_latex_table(df2, latex_column):
     """
     Rendert eine Pandas DataFrame-Tabelle in einem Jupyter Notebook,
     wobei die LaTeX-Formeln korrekt dargestellt werden.
@@ -150,6 +150,8 @@ def render_latex_table(df, latex_column):
     :param df: Pandas DataFrame
     :param latex_column: Name der Spalte mit LaTeX-Formeln
     """
+
+    df = df2.copy()
 
     # Erstelle HTML für die LaTeX-Spalte
     df[latex_column] = df[latex_column].apply(
