@@ -3,8 +3,8 @@ channels:
   - conda-forge
 dependencies:
   - python=3.12
-  - ogs
-  - ogstools
+  - ogs=6.5.4
+  - ogstools=0.6.0
   - seaborn
   - jupytext
   - nbgitpuller
