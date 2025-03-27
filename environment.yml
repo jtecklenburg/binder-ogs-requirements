@@ -1,0 +1,17 @@
+name: ogs-environment
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - ogs=6.5.4
+  - ogstools=0.6.0
+  - seaborn
+  - jupytext
+  - nbgitpuller
+  - ipywidgets
+  - gmsh
+  - black
+  - isort
+  - pip
+  - pip:
+    - jupyterlab-code-formatter

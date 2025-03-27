@@ -21,3 +21,9 @@ You can use [this link generator](https://nbgitpuller.readthedocs.io/en/latest/l
 - `Git Environment Repository URL`: `https://github.com/bilke/binder-ogs-requirements`
 - `Git Content Repository URL`: Your repo
 - `Application to Open`: `JupyterLab`
+
+## Development
+
+```bash
+uvx jupyter-repo2docker .
+```
