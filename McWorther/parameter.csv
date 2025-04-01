@@ -7,5 +7,5 @@ Dynamic viscosity of the wetting phase,\mu_\mathrm{n},mun,1.00E-03,1.0E-04,1.0E-
 Dynamic viscosity of the non-wetting pha,\mu_\mathrm{w},muw,1.00E-03,1.0E-04,1.0E-02,log,Pa&middot;s,Parameter
 Brooks and Corey model parameter: entry pressure,p_\mathrm{e},Pe,5000,1.00E+03,1.00E+05,log,Pa,'[{"medium id": 0, "name": "saturation", "valuetag": "entry_pressure", "propertytype":"SaturationBrooksCorey"}]'
 Brooks and Corey model parameter: pore size distribution index,\lambda,lambda_,3.00E+00,1.50,3.00,linear,1,'[{"medium id": 0, "name": "saturation", "valuetag": "lambda", "propertytype":"SaturationBrooksCorey"},{"medium id": 0, "name": "relative_permeability_nonwetting_phase", "valuetag": "lambda", "propertytype":"RelPermBrooksCoreyNonwettingPhase"},{"medium id": 0, "name": "relative_permeability", "valuetag": "lambda", "propertytype":"RelPermBrooksCorey"}]'
-Initial saturation,S_\mathrm{w}(t=0),Si,2.00E-01,0.00,0.50,linear,1,Parameter
+Initial saturation,S_\mathrm{w}(t=0),Si,2.00E-01,1.00E-08,0.50,linear,1,Parameter
 Injection boundary saturation,S_\mathrm{w}(x=0),S0,9.00E-01,0.51,1.00,linear,1,Parameter
