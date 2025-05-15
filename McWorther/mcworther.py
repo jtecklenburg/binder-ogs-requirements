@@ -57,14 +57,14 @@ def plot_model(pc, kn, kw, Smin=0, Smax=1, nel=100):
 
         plt.subplot(1, 2, 1)
         plt.semilogy(Sw, pc(Sw))
-        plt.xlabel("$S_\mathrm{w,e}$")
-        plt.ylabel("$P_\mathrm{c}$")
+        plt.xlabel(r"$S_\mathrm{w,e}$")
+        plt.ylabel(r"$P_\mathrm{c}$")
 
         ax2 = plt.subplot(1, 2, 2)
         plt.plot(Sw, kn(Sw))
         plt.plot(Sw, kw(Sw))
-        plt.xlabel("$S_\mathrm{w,e}$")
-        plt.ylabel("$k_\mathrm{n}$, $k_\mathrm{w}$")
+        plt.xlabel(r"$S_\mathrm{w,e}$")
+        plt.ylabel(r"$k_\mathrm{n}$, $k_\mathrm{w}$")
 
         ax2.yaxis.set_label_position("right")
         ax2.yaxis.tick_right()
@@ -127,8 +127,8 @@ class McWorther:
     def plot_solution(self):
 
         plt.plot(self.x, self.Sw, label=f"Analytical solution A={self.A:.4e}")
-        plt.xlabel("$x$ (m)")
-        plt.ylabel("$S_\mathrm{w}$ (-)")
+        plt.xlabel(r"$x$ (m)")
+        plt.ylabel(r"$S_\mathrm{w}$ (-)")
         plt.legend()
         #plt.show()
 
@@ -140,13 +140,13 @@ class McWorther:
 
         plt.subplot(1, 2, 1)
         plt.plot(Sw, self.D(Sw))
-        plt.xlabel('$S_\mathrm{w,e}$')
-        plt.ylabel('$D$')
+        plt.xlabel(r'$S_\mathrm{w,e}$')
+        plt.ylabel(r'$D$')
 
         ax2 = plt.subplot(1, 2, 2)
         plt.plot(Sw, self.f(Sw))
-        plt.xlabel('$S_{w,e}$')
-        plt.ylabel('$f$')
+        plt.xlabel(r'$S_{w,e}$')
+        plt.ylabel(r'$f$')
 
         ax2.yaxis.set_label_position("right")
         ax2.yaxis.tick_right()
