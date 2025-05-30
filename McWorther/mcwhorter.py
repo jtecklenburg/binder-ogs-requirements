@@ -11,7 +11,7 @@ class BrooksCorey:
 
     def Sw2Swe(self, Sw):
         eps2 = 10 ** -16
-        return np.clip((Sw-self.Snr)/(1-self.Snr-self.Swr), eps2, 1-eps2)
+        return np.clip((Sw-self.Swr)/(1-self.Snr-self.Swr), eps2, 1-eps2)
 
     def Sw2Swe_(func):
         def wrapper(self, Sw):
@@ -24,8 +24,9 @@ class BrooksCorey:
         return self.pd*Sw ** (-1/self.lambda_)
 
     @Sw2Swe_
-    def dPcdSw(self, Sw): 
-        return -self.pd/self.lambda_*Sw ** (-1/self.lambda_-1)
+    def dPcdSw(self, Swe):  # Achtung: Hier ist Swe der effektive Sättigungswert!
+        scaling_factor = 1 / (1 - self.Snr - self.Swr)
+        return (-self.pd / self.lambda_ * scaling_factor * Swe ** (-1/self.lambda_ - 1))
 
     # Relative permeabilities
     @Sw2Swe_
@@ -41,7 +42,7 @@ class BrooksCorey:
         return (self.pd/pc) ** self.lambda_
 
     def plot(self):
-        plot_model(self.pc, self.kn, self.kw, Smin=self.Snr, Smax=1-self.Swr)
+        plot_model(self.pc, self.kn, self.kw, Smin=self.Swr, Smax=1-self.Snr)
 
 
 class VanGenuchten:
@@ -54,7 +55,7 @@ class VanGenuchten:
 
     def Sw2Swe(self, Sw):
         eps2 = 10 ** -16
-        return np.clip((Sw-self.Snr)/(1-self.Snr-self.Swr), eps2, 1-eps2)
+        return np.clip((Sw-self.Swr)/(1-self.Snr-self.Swr), eps2, 1-eps2)
 
     def Sw2Swe_(func):
         def wrapper(self, Sw):
@@ -68,7 +69,8 @@ class VanGenuchten:
 
     @Sw2Swe_
     def dPcdSw(self, Sw):
-        return -1 / (self.alpha * Sw * self.n * self.m) * Sw ** (-1 / self.m) * (Sw ** (-1 / self.m) - 1) ** (1 / self.n - 1)
+        scaling_factor = 1 / (1 - self.Snr - self.Swr)
+        return -scaling_factor / (self.alpha * Sw * self.n * self.m) * Sw ** (-1 / self.m) * (Sw ** (-1 / self.m) - 1) ** (1 / self.n - 1)
 
     # Relative permeabilities
     @Sw2Swe_
@@ -80,7 +82,7 @@ class VanGenuchten:
         return np.sqrt(Sw) * (1 - (1 - Sw ** (1 / self.m)) ** self.m) ** 2
 
     def plot(self):
-        plot_model(self.pc, self.kn, self.kw, Smin=self.Snr, Smax=1-self.Swr)
+        plot_model(self.pc, self.kn, self.kw, Smin=self.Swr, Smax=1-self.Snr)
 
 
 def plot_model(pc, kn, kw, Smin=0, Smax=1, nel=100):
