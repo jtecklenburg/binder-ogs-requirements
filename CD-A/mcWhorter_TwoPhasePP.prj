@@ -164,6 +164,14 @@
                     <minimum_relative_permeability_liquid>1e-25</minimum_relative_permeability_liquid>
                 </property>
                 <property>
+                    <name>relative_permeability_nonwetting_phase</name>
+                    <type>RelativePermeabilityNonWettingPhaseVanGenuchtenMualem</type>
+                    <residual_liquid_saturation>Swr</residual_liquid_saturation>
+                    <residual_gas_saturation>Snr</residual_gas_saturation>
+                    <exponent>exp</exponent>
+                    <min_relative_permeability>1e-8</min_relative_permeability>
+                </property>
+                <property>
                     <name>porosity</name>
                     <type>Parameter</type>
                     <parameter_name>phi</parameter_name>
