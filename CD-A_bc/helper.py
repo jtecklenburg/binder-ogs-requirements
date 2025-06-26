@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import vtk
 from IPython.display import display, HTML, Javascript
 import pyvista as pv
+import xml.etree.ElementTree as ET
 
 class plot_with_error:
     def __init__(self, x_ref, y_ref, style, label_ref, xlabel, ylabel, dylabel):
@@ -173,3 +174,35 @@ def render_latex_table(df2, latex_column):
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     """))
+
+def parse_pvd(xml_filename):
+    try:
+        tree = ET.parse(xml_filename)
+        root = tree.getroot()
+
+        files = []
+        timesteps = []
+
+        # Durchlaufe alle DataSet-Elemente innerhalb von Collection
+        for dataset in root.find("Collection").findall("DataSet"):
+            file_name = dataset.get("file")
+            timestep = dataset.get("timestep")
+            if file_name and timestep:
+                files.append(file_name)
+                timesteps.append(float(timestep))  # Konvertiere timestep in Float für spätere Nutzung
+
+        return files, timesteps
+
+    except FileNotFoundError:
+        print(f"Fehler: Datei '{xml_filename}' nicht gefunden.")
+        return [], []
+
+    except ET.ParseError:
+        print(f"Fehler: Fehler beim Parsen der XML-Datei '{xml_filename}'.")
+        return [], []
+
+# # Beispielaufruf
+# xml_file = r"index.pvd"
+# file_list, timestep_list = parse_pvd(xml_file)
+# print("Files:", file_list)
+# print("Timesteps:", timestep_list)
