@@ -195,31 +195,31 @@
                 <time_stepping>
                     <type>FixedTimeStepping</type>
                     <t_initial>0</t_initial>
-                    <t_end>10000000</t_end>
+                    <t_end>1000</t_end>
                     <timesteps>
                         <pair>
                             <repeat>100</repeat>
-                            <delta_t>500</delta_t>
+                            <delta_t>0.05</delta_t>
                         </pair>
                         <pair>
                             <repeat>100</repeat>
-                            <delta_t>1000</delta_t>
+                            <delta_t>0.1</delta_t>
                         </pair>
                         <pair>
                             <repeat>100</repeat>
-                            <delta_t>5000</delta_t>
+                            <delta_t>0.5</delta_t>
                         </pair>
                         <pair>
                             <repeat>100</repeat>
-                            <delta_t>10000</delta_t>
+                            <delta_t>1</delta_t>
                         </pair>
                         <pair>
                             <repeat>100</repeat>
-                            <delta_t>20000</delta_t>
+                            <delta_t>2</delta_t>
                         </pair>
                         <pair>
                             <repeat>100</repeat>
-                            <delta_t>50000</delta_t>
+                            <delta_t>5</delta_t>
                         </pair>
                     </timesteps>
                 </time_stepping>
