@@ -3,8 +3,8 @@ channels:
   - conda-forge
 dependencies:
   - python=3.12
-  - ogs=6.5.4
-  - ogstools=0.6.0
+  - ogs=6.5.5
+  - ogstools=0.7.0
   - seaborn
   - jupytext
   - nbgitpuller
@@ -12,6 +12,8 @@ dependencies:
   - gmsh
   - black
   - isort
+  - pandoc
   - pip
   - pip:
     - jupyterlab-code-formatter
+    - VTUinterface>=0.704
