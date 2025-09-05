@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export OGS_USE_PATH="1"
+
+exec "$@"
