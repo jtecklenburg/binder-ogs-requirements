@@ -78,20 +78,23 @@ def layersfromsurf(surfmesh, thickness):
     ind = 0
     for i in range(surfmesh.number_of_cells):
         npoints = surfmesh.cells[ind]
+
         edges = surfmesh.cells[ind+1:ind+1+npoints]
 
         ind = ind + 1 + npoints
 
         for j in range(nlayer):
-            celltypes.append(ctype.setdefault(npoints,
-                                              vtk.VTK_CONVEX_POINT_SET))
 
-            cells.append(2*npoints)         # number of points
-            cells.extend(edges+j*nc)        # lower side
-            cells.extend(edges+(j+1)*nc)    # upper side
+            if npoints > 2:
+                celltypes.append(ctype.setdefault(npoints,
+                                                vtk.VTK_CONVEX_POINT_SET))
 
-            volume.append(area[i]*thickness[j])
-            layer.append(j)
+                cells.append(2*npoints)         # number of points
+                cells.extend(edges+j*nc)        # lower side
+                cells.extend(edges+(j+1)*nc)    # upper side
+
+                volume.append(area[i]*thickness[j])
+                layer.append(j)
 
     mesh = pv.UnstructuredGrid(cells,
                                np.array(celltypes),
