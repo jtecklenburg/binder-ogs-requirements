@@ -138,12 +138,14 @@
         <!-- Permeabilität und Porosität aus domain.vtu -->
         <parameter>
             <name>permeability</name>
-            <type>MeshNode</type>
+            <!-- <type>MeshNode</type> -->
+            <type>MeshElement</type>
             <field_name>permeability</field_name>
         </parameter>
         <parameter>
             <name>porosity</name>
-            <type>MeshNode</type>
+            <!-- <type>MeshNode</type> -->
+            <type>MeshElement</type>
             <field_name>porosity</field_name>
         </parameter>
         
@@ -200,22 +202,25 @@
             <initial_condition>pressure_ic</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <geometrical_set>boundary.vtu</geometrical_set>
-                    <geometry>boundary</geometry>
+                    <!-- <geometrical_set>boundary.vtu</geometrical_set>
+                    <geometry>boundary</geometry> --> 
+                    <mesh>boundary</mesh>
                     <type>Dirichlet</type>
                     <parameter>pressure_bc</parameter>
                 </boundary_condition>
             </boundary_conditions>
             <source_terms>
                 <source_term>
-                    <geometrical_set>injection.vtu</geometrical_set>
-                    <geometry>injection</geometry>
+                    <!-- <geometrical_set>injection.vtu</geometrical_set>
+                    <geometry>injection</geometry> -->
+                    <mesh>injection</mesh>
                     <type>Nodal</type>
                     <parameter>injection_rate</parameter>
                 </source_term>
                 <source_term>
-                    <geometrical_set>extraction.vtu</geometrical_set>
-                    <geometry>extraction</geometry>
+                    <!-- <geometrical_set>extraction.vtu</geometrical_set>
+                    <geometry>extraction</geometry> -->
+                    <mesh>extraction</mesh>
                     <type>Nodal</type>
                     <parameter>extraction_rate</parameter>
                 </source_term>
@@ -229,14 +234,16 @@
             <initial_condition>temperature_ic</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <geometrical_set>boundary.vtu</geometrical_set>
-                    <geometry>boundary</geometry>
+                    <!-- <geometrical_set>boundary.vtu</geometrical_set>
+                    <geometry>boundary</geometry> -->
+                    <mesh>boundary</mesh>
                     <type>Dirichlet</type>
                     <parameter>temperature_bc</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <geometrical_set>injection.vtu</geometrical_set>
-                    <geometry>injection</geometry>
+                    <!-- <geometrical_set>injection.vtu</geometrical_set>
+                    <geometry>injection</geometry> -->
+                    <mesh>injection</mesh>
                     <type>Dirichlet</type>
                     <parameter>injection_temperature</parameter>
                 </boundary_condition>
