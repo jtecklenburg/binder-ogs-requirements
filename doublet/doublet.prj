@@ -211,6 +211,19 @@
             <type>Constant</type>
             <value>-0.03</value>
         </parameter>
+
+        <parameter>
+            <name>alpha</name>
+            <type>Constant</type>
+            <value>0.0</value>
+        </parameter>
+
+        <parameter>
+            <name>one</name>
+            <type>Constant</type>
+            <value>1.0</value>
+        </parameter>
+
     </parameters>
 
     <!-- Prozessvariablen mit Rand- und Anfangsbedingungen -->
@@ -262,6 +275,7 @@
                     <type>Robin</type>
                     <alpha>alpha</alpha>
                     <u_0>extraction_rate</u_0>
+                    <area_parameter>one</area_parameter>
                 </boundary_condition>
             </boundary_conditions>
         </process_variable>
