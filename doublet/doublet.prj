@@ -202,8 +202,6 @@
             <initial_condition>pressure_ic</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <!-- <geometrical_set>boundary.vtu</geometrical_set>
-                    <geometry>boundary</geometry> --> 
                     <mesh>boundary</mesh>
                     <type>Dirichlet</type>
                     <parameter>pressure_bc</parameter>
@@ -211,15 +209,11 @@
             </boundary_conditions>
             <source_terms>
                 <source_term>
-                    <!-- <geometrical_set>injection.vtu</geometrical_set>
-                    <geometry>injection</geometry> -->
                     <mesh>injection</mesh>
                     <type>Nodal</type>
                     <parameter>injection_rate</parameter>
                 </source_term>
                 <source_term>
-                    <!-- <geometrical_set>extraction.vtu</geometrical_set>
-                    <geometry>extraction</geometry> -->
                     <mesh>extraction</mesh>
                     <type>Nodal</type>
                     <parameter>extraction_rate</parameter>
@@ -234,18 +228,20 @@
             <initial_condition>temperature_ic</initial_condition>
             <boundary_conditions>
                 <boundary_condition>
-                    <!-- <geometrical_set>boundary.vtu</geometrical_set>
-                    <geometry>boundary</geometry> -->
                     <mesh>boundary</mesh>
                     <type>Dirichlet</type>
                     <parameter>temperature_bc</parameter>
                 </boundary_condition>
                 <boundary_condition>
-                    <!-- <geometrical_set>injection.vtu</geometrical_set>
-                    <geometry>injection</geometry> -->
                     <mesh>injection</mesh>
                     <type>Dirichlet</type>
                     <parameter>injection_temperature</parameter>
+                </boundary_condition>
+                <boundary_condition>
+                    <mesh>extraction</mesh>
+                    <type>Robin</type>
+                    <alpha>alpha</alpha>
+                    <u_0>extraction_rate</u_0>
                 </boundary_condition>
             </boundary_conditions>
         </process_variable>
@@ -288,43 +284,182 @@
                     <type>BackwardEuler</type>
                 </time_discretization>
                 <time_stepping>
-                    <type>FixedTimeStepping</type>
-                    <t_initial>0.0</t_initial>
-                    <t_end>1.262304e9</t_end>  <!-- 40 Jahre in Sekunden -->
-                    <timesteps>
-                        <pair>
-                            <repeat>200</repeat>
-                            <delta_t>86400.0</delta_t>  <!-- 1 Tag -->
-                        </pair>
-                        <pair>
-                            <repeat>1260</repeat>
-                            <delta_t>864000.0</delta_t>  <!-- 10 Tage -->
-                        </pair>
-                        <pair>
-                            <repeat>400</repeat>
-                            <delta_t>2592000.0</delta_t>  <!-- 30 Tage -->
-                        </pair>
-                    </timesteps>
+                    <type>IterationNumberBasedTimeStepping</type>
+                    <t_initial>0</t_initial>
+                    <t_end>1.262304e9</t_end>
+                    <initial_dt>10</initial_dt>
+                    <minimum_dt>1</minimum_dt>
+                    <maximum_dt>2592000.0</maximum_dt>
+                    <number_iterations>2 6 8 9</number_iterations>
+                    <multiplier>1.6 1.0 0.5 0.25</multiplier>
                 </time_stepping>
             </process>
         </processes>
         <output>
             <type>VTK</type>
             <prefix>geothermal_doublet</prefix>
-            <timesteps>
-                <pair>
-                    <repeat>50</repeat>
-                    <each_steps>10</each_steps>
-                </pair>
-                <pair>
-                    <repeat>50</repeat>
-                    <each_steps>20</each_steps>
-                </pair>
-                <pair>
-                    <repeat>50</repeat>
-                    <each_steps>50</each_steps>
-                </pair>
-            </timesteps>
+            <fixed_output_times>
+                7689600.0
+                15379200.0
+                23068800.0
+                30758400.0
+                38448000.0
+                46137600.0
+                53827200.0
+                61516800.0
+                69206400.0
+                76896000.0
+                84585600.0
+                92275200.0
+                99964800.0
+                107654400.0
+                115344000.0
+                123033600.0
+                130723200.0
+                138412800.0
+                146102400.0
+                153792000.0
+                161481600.0
+                169171200.0
+                176860800.0
+                184550400.0
+                192240000.0
+                199929600.0
+                207619200.0
+                215308800.0
+                222998400.0
+                230688000.0
+                238377600.0
+                246067200.0
+                253756800.0
+                261446400.0
+                269136000.0
+                276825600.0
+                284515200.0
+                292204800.0
+                299894400.0
+                307584000.0
+                315273600.0
+                322963200.0
+                330652800.0
+                338342400.0
+                346032000.0
+                353721600.0
+                361411200.0
+                369100800.0
+                376790400.0
+                384480000.0
+                392169600.0
+                399859200.0
+                407548800.0
+                415238400.0
+                422928000.0
+                430617600.0
+                438307200.0
+                445996800.0
+                453686400.0
+                461376000.0
+                469065600.0
+                476755200.0
+                484444800.0
+                492134400.0
+                499824000.0
+                507513600.0
+                515203200.0
+                522892800.0
+                530582400.0
+                538272000.0
+                545961600.0
+                553651200.0
+                561340800.0
+                569030400.0
+                576720000.0
+                584409600.0
+                592099200.0
+                599788800.0
+                607478400.0
+                615168000.0
+                622857600.0
+                630547200.0
+                638236800.0
+                645926400.0
+                653616000.0
+                661305600.0
+                668995200.0
+                676684800.0
+                684374400.0
+                692064000.0
+                699753600.0
+                707443200.0
+                715132800.0
+                722822400.0
+                730512000.0
+                738201600.0
+                745891200.0
+                753580800.0
+                761270400.0
+                768960000.0
+                776649600.0
+                784339200.0
+                792028800.0
+                799718400.0
+                807408000.0
+                815097600.0
+                822787200.0
+                830476800.0
+                838166400.0
+                845856000.0
+                853545600.0
+                861235200.0
+                868924800.0
+                876614400.0
+                884304000.0
+                891993600.0
+                899683200.0
+                907372800.0
+                915062400.0
+                922752000.0
+                930441600.0
+                938131200.0
+                945820800.0
+                953510400.0
+                961200000.0
+                968889600.0
+                976579200.0
+                984268800.0
+                991958400.0
+                999648000.0
+                1007337600.0
+                1015027200.0
+                1022716800.0
+                1030406400.0
+                1038096000.0
+                1045785600.0
+                1053475200.0
+                1061164800.0
+                1068854400.0
+                1076544000.0
+                1084233600.0
+                1091923200.0
+                1099612800.0
+                1107302400.0
+                1114992000.0
+                1122681600.0
+                1130371200.0
+                1138060800.0
+                1145750400.0
+                1153440000.0
+                1161129600.0
+                1168819200.0
+                1176508800.0
+                1184198400.0
+                1191888000.0
+                1199577600.0
+                1207267200.0
+                1214956800.0
+                1222646400.0
+                1230336000.0
+            </fixed_output_times>
             <variables>
                 <variable>pressure</variable>
                 <variable>temperature</variable>
