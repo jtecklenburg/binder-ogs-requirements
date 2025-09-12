@@ -24,6 +24,10 @@
                 <secondary_variable internal_name="viscosity" output_name="viscosity"/>
             </secondary_variables>
             <specific_body_force>0 0 -9.81</specific_body_force>
+            <numerical_stabilization>
+                <type>FullUpwind</type>
+                <cutoff_velocity>0.0</cutoff_velocity>
+            </numerical_stabilization>
         </process>
     </processes>
 
