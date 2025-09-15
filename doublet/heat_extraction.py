@@ -14,7 +14,9 @@ class HeatExtraction(OpenGeoSys.SourceTerm):
         temperature = primary_vars[1]
 
         # Wärmefluss pro Länge (W/m)
-        q = (rho * cp * Q * temperature) / well_length # W/m
+        q = -(rho * cp * Q * temperature) / well_length # W/m
         
         return (q, [0.0, 0.0])
+    
+heatextraction = HeatExtraction()
 
