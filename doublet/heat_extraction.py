@@ -17,6 +17,17 @@ class HeatExtraction(OpenGeoSys.SourceTerm):
         q = -(rho * cp * Q * temperature) / well_length # W/m
         
         return (q, [0.0, 0.0])
-    
-heatextraction = HeatExtraction()
 
+
+class HeatInjection(OpenGeoSys.SourceTerm):
+    def getFlux(self, t, coords, primary_vars):
+
+        temperature = 1
+        # Wärmefluss pro Länge (W/m)
+        q = (rho * cp * Q * temperature) / well_length # W/m
+        
+        return (q, [0.0, 0.0])    
+
+
+heatextraction = HeatExtraction()
+heatinjection = HeatInjection()
