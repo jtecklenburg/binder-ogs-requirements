@@ -7,9 +7,9 @@
         <mesh>injection.vtu</mesh>
         <mesh>extraction.vtu</mesh>
     </meshes>
-
+    
     <python_script>heat_extraction.py</python_script>
-
+    
     <!-- Prozess-Definition für geothermische Dublette -->
     <processes>
         <process>
@@ -180,7 +180,7 @@
         <parameter>
             <name>temperature_ic</name>
             <type>Constant</type>
-            <value>1.0</value>
+            <value>0.0</value>
         </parameter>
         
         <!-- Randbedingungen -->
@@ -192,26 +192,33 @@
         <parameter>
             <name>temperature_bc</name>
             <type>Constant</type>
-            <value>1.0</value>
+            <value>0.0</value>
         </parameter>
         
-        <!-- Injektion mit Q = 0.03 -->
+        <!-- Injektion mit q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005  -->
         <parameter>
             <name>injection_rate</name>
             <type>Constant</type>
-            <value>0.03</value>
+            <value>0.0005</value>
         </parameter>
         <parameter>
             <name>injection_temperature</name>
             <type>Constant</type>
-            <value>0.0</value>
+            <value>1.0</value>
         </parameter>
         
-        <!-- Extraktion mit Q = 0.03 -->
+        <!-- Extraktion mit q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005 -->
         <parameter>
             <name>extraction_rate</name>
             <type>Constant</type>
-            <value>-0.03</value>
+            <value>-0.0005</value>
+        </parameter>
+
+        <!-- Heat injection mit q/2 = (rho * cp * Q * temperature) / well_length / 2 -->
+        <parameter>
+            <name>heatinjection</name>
+            <type>Constant</type>
+            <value>2090.0</value>
         </parameter>
 
     </parameters>
@@ -255,17 +262,23 @@
                     <type>Dirichlet</type>
                     <parameter>temperature_bc</parameter>
                 </boundary_condition>
-                <boundary_condition>
+                <!-- <boundary_condition>
                     <mesh>injection</mesh>
                     <type>Dirichlet</type>
                     <parameter>injection_temperature</parameter>
-                </boundary_condition>
+                </boundary_condition> --> 
             </boundary_conditions>
             <source_terms>
                 <source_term>
                   <type>Python</type>
                   <mesh>extraction</mesh>
                   <source_term_object>heatextraction</source_term_object>
+                </source_term>
+                <source_term>
+                  <type>Line</type>
+                  <mesh>injection</mesh>
+                  <!-- <source_term_object>heatinjection</source_term_object> --> 
+                  <parameter>heatinjection</parameter>
                 </source_term>
             </source_terms>
         </process_variable>
