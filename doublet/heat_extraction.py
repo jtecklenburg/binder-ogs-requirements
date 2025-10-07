@@ -13,8 +13,8 @@ class HeatExtraction(OpenGeoSys.SourceTerm):
         temperature = primary_vars[0]
         pressure = primary_vars[1]
 
-        print(temperature)
-        print(pressure)
+        print(f"T = {temperature}")
+        print(f"p = {pressure}")
 
         # Wärmefluss pro Länge (W/m)
         q = -(rho * cp * Q * temperature) / well_length # W/m
