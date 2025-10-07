@@ -275,20 +275,20 @@
                     <type>Dirichlet</type>
                     <parameter>temperature_bc</parameter>
                 </boundary_condition>
-                <boundary_condition>
+                <!-- <boundary_condition>
                     <mesh>extraction</mesh>
                     <type>Robin</type>
                     <alpha>heatextraction</alpha>
                     <u_0>temperature_bc</u_0>
                     <area_parameter>one</area_parameter>
-                </boundary_condition>
+                </boundary_condition> --> 
             </boundary_conditions>
             <source_terms>
-                <!-- <source_term>
+                <source_term>
                   <type>Python</type>
                   <mesh>extraction</mesh>
                   <source_term_object>heatextraction</source_term_object>
-                </source_term> --> 
+                </source_term> 
                 <source_term>
                   <type>Line</type>
                   <mesh>injection</mesh>
