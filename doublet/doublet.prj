@@ -7,7 +7,7 @@
         <mesh>injection.vtu</mesh>
         <mesh>extraction.vtu</mesh>
     </meshes>
-    <python_script>heat_extraction.py</python_script>
+
     <!-- Prozess-Definition f&#252;r geothermische Dublette -->
     <processes>
         <process>
@@ -203,7 +203,7 @@
         <parameter>
             <name>extraction_rate</name>
             <type>Constant</type>
-            <value>-inf</value>
+            <value>0.0005</value>
         </parameter>
         <!-- Heat injection mit q/2 = (rho * cp * Q * temperature) / well_length / 2 -->
         <parameter>
