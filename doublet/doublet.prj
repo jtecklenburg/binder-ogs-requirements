@@ -7,10 +7,8 @@
         <mesh>injection.vtu</mesh>
         <mesh>extraction.vtu</mesh>
     </meshes>
-    
     <python_script>heat_extraction.py</python_script>
-    
-    <!-- Prozess-Definition für geothermische Dublette -->
+    <!-- Prozess-Definition f&#252;r geothermische Dublette -->
     <processes>
         <process>
             <name>HT</name>
@@ -21,7 +19,7 @@
                 <temperature>temperature</temperature>
             </process_variables>
             <secondary_variables>
-				<secondary_variable internal_name="darcy_velocity" output_name="darcy_velocity"/>
+                <secondary_variable internal_name="darcy_velocity" output_name="darcy_velocity"/>
                 <!-- <secondary_variable internal_name="velocity" output_name="velocity"/>
                 <secondary_variable internal_name="fluid_density" output_name="fluid_density"/>
                 <secondary_variable internal_name="viscosity" output_name="viscosity"/> -->
@@ -33,8 +31,7 @@
             </numerical_stabilization>
         </process>
     </processes>
-
-    <!-- Material-Eigenschaften für geothermische Simulation -->
+    <!-- Material-Eigenschaften f&#252;r geothermische Simulation -->
     <media>
         <medium id="0">
             <phases>
@@ -51,13 +48,13 @@
                             <type>Constant</type>
                             <value>0.6</value>
                         </property>
-                        <!-- Konstante Fluiddichte statt temperaturabhängig -->
+                        <!-- Konstante Fluiddichte statt temperaturabh&#228;ngig -->
                         <property>
                             <name>density</name>
                             <type>Constant</type>
                             <value>1000.0</value>
                         </property>
-                        <!-- Temperaturabhängige Dichte auskommentiert
+                        <!-- Temperaturabh&#228;ngige Dichte auskommentiert
                         <property>
                             <name>density</name>
                             <type>Linear</type>
@@ -74,13 +71,13 @@
                             <type>Constant</type>
                             <value>4.0e-4</value>
                         </property>
-                        <!-- Konstante Viskosität statt temperaturabhängig -->
+                        <!-- Konstante Viskosit&#228;t statt temperaturabh&#228;ngig -->
                         <property>
                             <name>viscosity</name>
                             <type>Constant</type>
                             <value>1.0e-3</value>
                         </property>
-                        <!-- Temperaturabhängige Viskosität auskommentiert
+                        <!-- Temperaturabh&#228;ngige Viskosit&#228;t auskommentiert
                         <property>
                             <name>viscosity</name>
                             <type>Function</type>
@@ -125,13 +122,13 @@
                 </phase>
             </phases>
             <properties>
-                <!-- Permeabilität aus domain.vtu verwenden -->
+                <!-- Permeabilit&#228;t aus domain.vtu verwenden -->
                 <property>
                     <name>permeability</name>
                     <type>Parameter</type>
                     <parameter_name>permeability</parameter_name>
                 </property>
-                <!-- Porosität aus domain.vtu verwenden -->
+                <!-- Porosit&#228;t aus domain.vtu verwenden -->
                 <property>
                     <name>porosity</name>
                     <type>Parameter</type>
@@ -154,10 +151,9 @@
             </properties>
         </medium>
     </media>
-
     <!-- Parameter-Definitionen -->
     <parameters>
-        <!-- Permeabilität und Porosität aus domain.vtu -->
+        <!-- Permeabilit&#228;t und Porosit&#228;t aus domain.vtu -->
         <parameter>
             <name>permeability</name>
             <!-- <type>MeshNode</type> -->
@@ -170,7 +166,6 @@
             <type>MeshElement</type>
             <field_name>porosity</field_name>
         </parameter>
-        
         <!-- Anfangsbedingungen -->
         <parameter>
             <name>pressure_ic</name>
@@ -182,7 +177,6 @@
             <type>Constant</type>
             <value>0.0</value>
         </parameter>
-        
         <!-- Randbedingungen -->
         <parameter>
             <name>pressure_bc</name>
@@ -194,7 +188,6 @@
             <type>Constant</type>
             <value>0.0</value>
         </parameter>
-        
         <!-- Injektion mit q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005  -->
         <parameter>
             <name>injection_rate</name>
@@ -206,36 +199,29 @@
             <type>Constant</type>
             <value>1.0</value>
         </parameter>
-        
         <!-- Extraktion mit q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005 -->
         <parameter>
             <name>extraction_rate</name>
             <type>Constant</type>
-            <value>-0.0005</value>
+            <value>-inf</value>
         </parameter>
-
         <!-- Heat injection mit q/2 = (rho * cp * Q * temperature) / well_length / 2 -->
         <parameter>
             <name>heatinjection</name>
             <type>Constant</type>
-            <value>2090.0</value>
+            <value>3150.0</value>
         </parameter>
-
         <parameter>
             <name>heatextraction</name>
             <type>Constant</type>
             <value>2090.0</value>
         </parameter>
-
         <parameter>
             <name>one</name>
             <type>Constant</type>
             <value>1.0</value>
         </parameter>
-
-
     </parameters>
-
     <!-- Prozessvariablen mit Rand- und Anfangsbedingungen -->
     <process_variables>
         <process_variable>
@@ -263,7 +249,6 @@
                 </source_term>
             </source_terms>
         </process_variable>
-        
         <process_variable>
             <name>temperature</name>
             <components>1</components>
@@ -275,20 +260,15 @@
                     <type>Dirichlet</type>
                     <parameter>temperature_bc</parameter>
                 </boundary_condition>
-                <!-- <boundary_condition>
+                <boundary_condition>
                     <mesh>extraction</mesh>
                     <type>Robin</type>
                     <alpha>heatextraction</alpha>
                     <u_0>temperature_bc</u_0>
                     <area_parameter>one</area_parameter>
-                </boundary_condition> -->
+                </boundary_condition>
             </boundary_conditions>
             <source_terms>
-                <source_term>
-                    <type>Python</type>
-                    <mesh>extraction</mesh>
-                    <source_term_object>heatextraction</source_term_object>
-                </source_term>
                 <source_term>
                     <type>Line</type>
                     <mesh>injection</mesh>
@@ -298,18 +278,17 @@
             </source_terms>
         </process_variable>
     </process_variables>
-
-    <!-- Nichtlinearer Löser -->
+    <!-- Nichtlinearer L&#246;ser -->
     <nonlinear_solvers>
         <nonlinear_solver>
-            <name>basic_picard</name>		<!--auch bei Timeloop einfügen-->
+            <name>basic_picard</name>
+            <!--auch bei Timeloop einf&#252;gen-->
             <type>Picard</type>
             <max_iter>600</max_iter>
             <linear_solver>general_linear_solver</linear_solver>
         </nonlinear_solver>
     </nonlinear_solvers>
-
-    <!-- Linearer Löser -->
+    <!-- Linearer L&#246;ser -->
     <linear_solvers>
         <linear_solver>
             <name>general_linear_solver</name>
@@ -321,8 +300,7 @@
             </eigen>
         </linear_solver>
     </linear_solvers>
-
-    <!-- Zeitintegration für 40 Jahre -->
+    <!-- Zeitintegration f&#252;r 40 Jahre -->
     <time_loop>
         <processes>
             <process ref="HT">
@@ -523,8 +501,7 @@
             <suffix>_ts_{:timestep}_t_{:time}</suffix>
         </output>
     </time_loop>
-    
-    <!-- Test-Definition für Validierung (optional) -->
+    <!-- Test-Definition f&#252;r Validierung (optional) -->
     <test_definition>
         <vtkdiff>
             <file>geothermal_doublet_ts_1860_t_1262304000.000000.vtu</file>
