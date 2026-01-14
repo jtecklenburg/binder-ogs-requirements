@@ -41,7 +41,7 @@
                         <property>
                             <name>specific_heat_capacity</name>
                             <type>Constant</type>
-                            <value>4180.0</value>
+                            <value>4200.0</value>
                         </property>
                         <property>
                             <name>thermal_conductivity</name>
@@ -52,7 +52,7 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>1000.0</value>
+                            <value>1100.0</value>
                         </property>
                         <!-- Temperaturabh&#228;ngige Dichte auskommentiert
                         <property>
@@ -96,12 +96,12 @@
                         <property>
                             <name>density</name>
                             <type>Constant</type>
-                            <value>2650</value>
+                            <value>1900</value>
                         </property>
                         <property>
                             <name>thermal_conductivity</name>
                             <type>Constant</type>
-                            <value>2.5</value>
+                            <value>3.0</value>
                         </property>
                         <property>
                             <name>specific_heat_capacity</name>
