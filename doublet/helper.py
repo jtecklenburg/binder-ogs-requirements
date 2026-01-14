@@ -87,3 +87,38 @@ def mean_over_time(pvd_file, domain_vtu, roi_vtu, field):
         output.append(mean_field)
 
     return np.array(timesteps), np.array(output)
+
+
+def find_nearby_points(mesh, start, end, tolerance=1e-3):
+    """
+    Finds mesh points that are close to a line segment defined by start and end points.
+
+    Parameters:
+        mesh (pyvista.UnstructuredGrid): The mesh containing points to search.
+        start (array-like): Starting point of the line segment (3D coordinates).
+        end (array-like): Ending point of the line segment (3D coordinates).
+        tolerance (float, optional): Maximum allowed distance from the line segment.
+                                     Default is 1e-3.
+
+    Returns:
+        list of int: Indices of mesh points within the tolerance distance from the line segment.
+    """
+    # Direction and length of the line segment
+    direction = end - start
+    length = np.linalg.norm(direction)
+    direction_normalized = direction / length
+
+    # Points in the mesh
+    points = mesh.points
+    extracted_ids = []
+
+    # Find points close to the line segment
+    for i, p in enumerate(points):
+        v = p - start
+        proj = np.dot(v, direction_normalized)
+        if 0 <= proj <= length:
+            dist = np.linalg.norm(v - proj * direction_normalized)
+            if dist < tolerance:
+                extracted_ids.append(i)
+
+    return extracted_ids
