@@ -8,8 +8,6 @@
         <mesh>extraction.vtu</mesh>
     </meshes>
     
-    <python_script>heat_extraction.py</python_script>
-    
     <!-- Prozess-Definition: Strömung + Stofftransport -->
     <processes>
         <process>
