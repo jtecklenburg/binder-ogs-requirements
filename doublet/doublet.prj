@@ -298,12 +298,10 @@
                 <max_iteration_step>50000</max_iteration_step>
                 <error_tolerance>1e-8</error_tolerance>
             </eigen> --> 
-            <petsc>
-                -hc_mat_type aij 
-                -hc_pc_type lu
-                -hc_pc_factor_mat_solver_type mkl_pardiso
-                -hc_ksp_view
-            </petsc>
+            <eigen>
+                <solver_type>PardisoLU</solver_type>
+                <scaling>true</scaling>
+            </eigen>
         </linear_solver>
     </linear_solvers>
     <!-- Time integration for 40 years -->
