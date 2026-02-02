@@ -299,7 +299,7 @@
                 <error_tolerance>1e-8</error_tolerance>
             </eigen> --> 
             <eigen>
-                <solver_type>PardisoLU</solver_type>
+                <solver_type>SparseLU</solver_type>
                 <scaling>true</scaling>
             </eigen>
         </linear_solver>
