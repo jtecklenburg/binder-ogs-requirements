@@ -1,6 +1,8 @@
+import vtk
 import numpy as np
 import pyvista as pv
 import xml.etree.ElementTree as ET
+
 
 def parse_pvd(pvd_file):
     """
@@ -122,3 +124,64 @@ def find_nearby_points(mesh, start, end, tolerance=1e-3):
                 extracted_ids.append(i)
 
     return extracted_ids
+
+
+def calculate_wedge_base_inradius(mesh: pv.UnstructuredGrid) -> np.ndarray:
+    """
+    Calculates the inradius of the triangular base for VTK_WEDGE elements.
+    
+    This function assumes that the mesh consists of wedge elements where the 
+    first three nodes of each cell define the characteristic triangular face 
+    relevant for the CFL condition in advection-dominated problems.
+
+    Parameters:
+    -----------
+    mesh : pyvista.UnstructuredGrid
+        The input mesh containing VTK_WEDGE cells.
+
+    Returns:
+    --------
+    inradii : np.ndarray
+        Array of inradii for each wedge element.
+    """
+    if mesh.n_cells == 0:
+        return np.array([])
+
+    # Extract only the wedge cells
+    wedge_mask = mesh.celltypes == vtk.VTK_WEDGE
+    # Standard VTK_WEDGE has 6 points. PyVista's .cells is a padded array.
+    # We reshape to (n_cells, 7) because each wedge entry is [6, p1, p2, p3, p4, p5, p6]
+    cells = mesh.cells.reshape(-1, 7)
+    
+    # Select only the first three nodes (triangular base) for each wedge
+    # Index 0 is the padding (count), 1, 2, 3 are the first triangle nodes
+    tri_nodes = cells[wedge_mask, 1:4]
+    
+    # Retrieve coordinate vectors for the three nodes
+    p0 = mesh.points[tri_nodes[:, 0]]
+    p1 = mesh.points[tri_nodes[:, 1]]
+    p2 = mesh.points[tri_nodes[:, 2]]
+
+    # Compute edge lengths of the triangular base
+    a = np.linalg.norm(p1 - p2, axis=1)
+    b = np.linalg.norm(p0 - p2, axis=1)
+    c = np.linalg.norm(p0 - p1, axis=1)
+
+    # Semi-perimeter s
+    s = (a + b + c) / 2.0
+
+    # Area of the triangular base using cross product (magnitude of vector)
+    # Area = 0.5 * |(p1-p0) x (p2-p0)|
+    area = 0.5 * np.linalg.norm(np.cross(p1 - p0, p2 - p0), axis=1)
+
+    # Inradius r = Area / s
+    # Handling potential division by zero for degenerate elements
+    inradii = np.divide(area, s, out=np.zeros_like(area), where=s != 0)
+
+    return inradii
+
+# Example usage:
+# mesh = pv.read("hydro_simulation.vtu")
+# r_in = calculate_wedge_base_inradius(mesh)
+# mesh.cell_data["char_length"] = 2 * r_in
+
