@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <OpenGeoSysProject>
-    <!-- Mesh-Definitionen -->
+    <!-- Mesh definitions -->
     <meshes>
         <mesh>domain.vtu</mesh>
         <mesh>boundary.vtu</mesh>
@@ -8,7 +8,7 @@
         <mesh>extraction.vtu</mesh>
     </meshes>
 
-    <!-- Prozess-Definition f&#252;r geothermische Dublette -->
+    <!-- Process definition for geothermal doublet -->
     <processes>
         <process>
             <name>HT</name>
@@ -31,7 +31,7 @@
             </numerical_stabilization>
         </process>
     </processes>
-    <!-- Material-Eigenschaften f&#252;r geothermische Simulation -->
+    <!-- Material properties for geothermal simulation -->
     <media>
         <medium id="0">
             <phases>
@@ -48,13 +48,13 @@
                             <type>Constant</type>
                             <value>0.6</value>
                         </property>
-                        <!-- Konstante Fluiddichte statt temperaturabh&#228;ngig -->
+                        <!-- Constant fluid density instead of temperature-dependent -->
                         <property>
                             <name>density</name>
                             <type>Constant</type>
                             <value>1100.0</value>
                         </property>
-                        <!-- Temperaturabh&#228;ngige Dichte auskommentiert
+                        <!-- Temperature-dependent density commented out
                         <property>
                             <name>density</name>
                             <type>Linear</type>
@@ -71,13 +71,13 @@
                             <type>Constant</type>
                             <value>4.0e-4</value>
                         </property>
-                        <!-- Konstante Viskosit&#228;t statt temperaturabh&#228;ngig -->
+                        <!-- Constant viscosity instead of temperature-dependent -->
                         <property>
                             <name>viscosity</name>
                             <type>Constant</type>
                             <value>1.0e-3</value>
                         </property>
-                        <!-- Temperaturabh&#228;ngige Viskosit&#228;t auskommentiert
+                        <!-- Temperature-dependent viscosity commented out
                         <property>
                             <name>viscosity</name>
                             <type>Function</type>
@@ -122,13 +122,13 @@
                 </phase>
             </phases>
             <properties>
-                <!-- Permeabilit&#228;t aus domain.vtu verwenden -->
+                <!-- Use permeability from domain.vtu -->
                 <property>
                     <name>permeability</name>
                     <type>Parameter</type>
                     <parameter_name>permeability</parameter_name>
                 </property>
-                <!-- Porosit&#228;t aus domain.vtu verwenden -->
+                <!-- Use porosity from domain.vtu -->
                 <property>
                     <name>porosity</name>
                     <type>Parameter</type>
@@ -151,9 +151,9 @@
             </properties>
         </medium>
     </media>
-    <!-- Parameter-Definitionen -->
+    <!-- Parameter definitions -->
     <parameters>
-        <!-- Permeabilit&#228;t und Porosit&#228;t aus domain.vtu -->
+        <!-- Permeability and porosity from domain.vtu -->
         <parameter>
             <name>permeability</name>
             <!-- <type>MeshNode</type> -->
@@ -166,7 +166,7 @@
             <type>MeshElement</type>
             <field_name>porosity</field_name>
         </parameter>
-        <!-- Anfangsbedingungen -->
+        <!-- Initial conditions -->
         <parameter>
             <name>pressure_ic</name>
             <type>Constant</type>
@@ -177,7 +177,7 @@
             <type>Constant</type>
             <value>0.0</value>
         </parameter>
-        <!-- Randbedingungen -->
+        <!-- Boundary conditions -->
         <parameter>
             <name>pressure_bc</name>
             <type>Constant</type>
@@ -188,7 +188,7 @@
             <type>Constant</type>
             <value>0.0</value>
         </parameter>
-        <!-- Injektion mit q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005  -->
+        <!-- Injection with q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005  -->
         <parameter>
             <name>injection_rate</name>
             <type>Constant</type>
@@ -199,13 +199,13 @@
             <type>Constant</type>
             <value>1.0</value>
         </parameter>
-        <!-- Extraktion mit q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005 -->
+        <!-- Extraction with q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005 -->
         <parameter>
             <name>extraction_rate</name>
             <type>Constant</type>
             <value>0.0005</value>
         </parameter>
-        <!-- Heat injection mit q/2 = (rho * cp * Q * temperature) / well_length / 2 -->
+        <!-- Heat injection with q/2 = (rho * cp * Q * temperature) / well_length / 2 -->
         <parameter>
             <name>heatinjection</name>
             <type>Constant</type>
@@ -222,7 +222,7 @@
             <value>1.0</value>
         </parameter>
     </parameters>
-    <!-- Prozessvariablen mit Rand- und Anfangsbedingungen -->
+    <!-- Process variables with boundary and initial conditions -->
     <process_variables>
         <process_variable>
             <name>pressure</name>
@@ -278,29 +278,33 @@
             </source_terms>
         </process_variable>
     </process_variables>
-    <!-- Nichtlinearer L&#246;ser -->
+    <!-- Nonlinear solver -->
     <nonlinear_solvers>
         <nonlinear_solver>
             <name>basic_picard</name>
-            <!--auch bei Timeloop einf&#252;gen-->
+            <!--also insert in timeloop-->
             <type>Picard</type>
             <max_iter>600</max_iter>
             <linear_solver>general_linear_solver</linear_solver>
         </nonlinear_solver>
     </nonlinear_solvers>
-    <!-- Linearer L&#246;ser -->
+    <!-- Linear solver -->
     <linear_solvers>
         <linear_solver>
             <name>general_linear_solver</name>
-            <eigen>
+            <!-- <eigen>
                 <solver_type>BiCGSTAB</solver_type>
                 <precon_type>ILUT</precon_type>
                 <max_iteration_step>50000</max_iteration_step>
                 <error_tolerance>1e-8</error_tolerance>
+            </eigen> --> 
+            <eigen>
+                <solver_type>SparseLU</solver_type>
+                <scaling>true</scaling>
             </eigen>
         </linear_solver>
     </linear_solvers>
-    <!-- Zeitintegration f&#252;r 40 Jahre -->
+    <!-- Time integration for 40 years -->
     <time_loop>
         <processes>
             <process ref="HT">
@@ -501,7 +505,7 @@
             <suffix>_ts_{:timestep}_t_{:time}</suffix>
         </output>
     </time_loop>
-    <!-- Test-Definition f&#252;r Validierung (optional) -->
+    <!-- Test definition for validation (optional) -->
     <test_definition>
         <vtkdiff>
             <file>geothermal_doublet_ts_1860_t_1262304000.000000.vtu</file>
