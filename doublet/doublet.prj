@@ -216,11 +216,6 @@
             <type>Constant</type>
             <value>2090.0</value>
         </parameter>
-        <parameter>
-            <name>one</name>
-            <type>Constant</type>
-            <value>1.0</value>
-        </parameter>
     </parameters>
     <!-- Process variables with boundary and initial conditions -->
     <process_variables>
@@ -265,7 +260,6 @@
                     <type>Robin</type>
                     <alpha>heatextraction</alpha>
                     <u_0>temperature_bc</u_0>
-                    <area_parameter>one</area_parameter>
                 </boundary_condition>
             </boundary_conditions>
             <source_terms>
