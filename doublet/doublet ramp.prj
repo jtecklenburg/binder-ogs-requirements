@@ -189,25 +189,25 @@
         <!-- Injection with q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005  -->
         <parameter>
             <name>injection_rate</name>
-            <type>Constant</type>
-            <value>0.0005</value>
+            <type>Function</type>
+            <expression>0.0005</expression>
         </parameter>
         <!-- Extraction with q/2 = Q / L / 2 = 0.03 / 30 / 2 = 0.0005 -->
         <parameter>
             <name>extraction_rate</name>
-            <type>Constant</type>
-            <value>0.0005</value>
+            <type>Function</type>
+            <expression>0.0005</expression>
         </parameter>
         <!-- Heat injection with q/2 = (rho * cp * Q * temperature) / well_length / 2 -->
         <parameter>
             <name>heatinjection</name>
-            <type>Constant</type>
-            <value>3150.0</value>
+            <type>Function</type>
+            <expression>3150.0</expression>
         </parameter>
         <parameter>
             <name>heatextraction</name>
-            <type>Constant</type>
-            <value>2090.0</value>
+            <type>Function</type>
+            <expression>2090.0</expression>
         </parameter>
     </parameters>
     <!-- Process variables with boundary and initial conditions -->
